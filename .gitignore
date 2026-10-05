@@ -1,0 +1,23 @@
+# build outputs
+labs/*/seg
+labs/*/uaf
+labs/*/uaf_fixed
+labs/*/race
+labs/*/race_fixed
+labs/*/dead
+labs/*/dead_fixed
+labs/*/fs
+labs/*/br
+labs/*/br_o1
+labs/*/br_o3
+labs/*/plain
+labs/*/test
+labs/*/test_tsan
+labs/*/bench
+*.o
+core
+core.*
+perf.data
+perf.data.old
+*.svg
+FlameGraph/

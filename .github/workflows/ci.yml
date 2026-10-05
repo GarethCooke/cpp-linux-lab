@@ -1,0 +1,17 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Allow ThreadSanitizer on the runner kernel
+        run: sudo sysctl -w vm.mmap_rnd_bits=28
+      - name: Build all labs
+        run: make
+      - name: Reference solutions under sanitizers
+        run: make check
