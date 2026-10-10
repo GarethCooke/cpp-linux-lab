@@ -35,6 +35,15 @@
       "problemMatcher": ["$gcc"]
     },
     {
+      // Crashes ./seg with core dumps enabled, then points core.latest at the
+      // newest core so the launch configuration has a fixed path to open.
+      "label": "lab: collect core (01)",
+      "type": "shell",
+      "command": "make && (ulimit -c unlimited; ./seg; ln -sf \"$(ls -t core.seg.* | head -1)\" core.latest && test -e core.latest)",
+      "options": { "cwd": "${workspaceFolder}/labs/01-segfault-core" },
+      "problemMatcher": ["$gcc"]
+    },
+    {
       "label": "lab: benchmark SPSC (07)",
       "type": "shell",
       "command": "make bench",

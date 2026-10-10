@@ -11,6 +11,10 @@
       "program": "${fileDirname}/${fileBasenameNoExtension}",
       "args": [],
       "cwd": "${fileDirname}",
+      "environment": [
+        // Lab 02: stop in the debugger on an ASan report. LeakSanitizer cannot run under gdb.
+        { "name": "ASAN_OPTIONS", "value": "abort_on_error=1:detect_leaks=0" }
+      ],
       "MIMode": "gdb",
       "miDebuggerPath": "/usr/bin/gdb",
       "preLaunchTask": "lab: build",
@@ -35,15 +39,19 @@
       ]
     },
     {
-      // Lab 01: after ./seg has crashed and written core.seg.<pid>.
-      "name": "Open core dump (01)",
+      // Lab 01: builds seg, crashes it, and opens the core it just wrote.
+      "name": "Crash and open core dump (01)",
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/labs/01-segfault-core/seg",
-      "coreDumpPath": "${input:corePath}",
+      "coreDumpPath": "${workspaceFolder}/labs/01-segfault-core/core.latest",
       "cwd": "${workspaceFolder}/labs/01-segfault-core",
       "MIMode": "gdb",
-      "miDebuggerPath": "/usr/bin/gdb"
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "lab: collect core (01)",
+      "setupCommands": [
+        { "description": "Pretty-print STL types", "text": "-enable-pretty-printing", "ignoreFailures": true }
+      ]
     },
     {
       // Lab 04: start ./dead in a terminal first, then pick it from the list.
@@ -58,14 +66,6 @@
       "setupCommands": [
         { "description": "Pretty-print STL types", "text": "-enable-pretty-printing", "ignoreFailures": true }
       ]
-    }
-  ],
-  "inputs": [
-    {
-      "id": "corePath",
-      "type": "promptString",
-      "description": "Full path to the core file, e.g. labs/01-segfault-core/core.seg.12345",
-      "default": "${workspaceFolder}/labs/01-segfault-core/core.seg."
     }
   ]
 }

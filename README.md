@@ -47,7 +47,7 @@ Open the repo folder with `code .` and install the recommended C/C++ extension w
 | Run the lab's tests (07, 08) | Terminal > Run Task > `lab: test` |
 | Step through a lab program (01–06) | Open its `.cpp`, then Run and Debug > `Debug open lab program` > `F5` |
 | Step through your exercise (07, 08) | Open `test.cpp`, then `Debug exercise tests` > `F5` (built at `-O0`, no sanitizers) |
-| Inspect lab 01's crash | `Open core dump (01)`, then give the path to `core.seg.<pid>` |
+| Inspect lab 01's crash | `Crash and open core dump (01)` > `F5` (builds `seg`, crashes it, opens the new core) |
 | See lab 04's deadlock | Start `./dead` in the terminal, then `Attach to running process (04)` and pick `dead` |
 
 The terminal commands in each lab's README are still the ones to practise for the interview. VS Code's debugger runs gdb underneath, and the Debug Console accepts gdb commands prefixed with `-exec`, e.g. `-exec thread apply all bt`.
