@@ -5,7 +5,7 @@
 IMPL     ?= .
 CXXFLAGS := -std=c++20 -g -Wall -Wextra -I$(IMPL) -Isolution
 
-.PHONY: all test bench clean
+.PHONY: all test bench debug clean
 
 # build only; `make test` and `make bench` build and run
 all:
@@ -20,5 +20,9 @@ bench:
 	$(CXX) $(CXXFLAGS) -O2 -DNDEBUG bench.cpp -o bench -pthread
 	./bench $(CPUS)
 
+# unoptimised, no sanitizer: for stepping through in gdb / VS Code
+debug:
+	$(CXX) $(CXXFLAGS) -O0 test.cpp -o test_dbg -pthread
+
 clean:
-	rm -f test_tsan bench
+	rm -f test_tsan bench test_dbg

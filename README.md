@@ -36,3 +36,18 @@ make          # build all labs
 make check    # run the reference solutions' tests under sanitizers (what CI runs)
 make clean
 ```
+
+## VS Code
+
+Open the repo folder with `code .` and install the recommended C/C++ extension when prompted. Every task and debug configuration works on the lab folder of the file you have open.
+
+| To | Do |
+|----|----|
+| Build the lab | `Ctrl+Shift+B` |
+| Run the lab's tests (07, 08) | Terminal > Run Task > `lab: test` |
+| Step through a lab program (01–06) | Open its `.cpp`, then Run and Debug > `Debug open lab program` > `F5` |
+| Step through your exercise (07, 08) | Open `test.cpp`, then `Debug exercise tests` > `F5` (built at `-O0`, no sanitizers) |
+| Inspect lab 01's crash | `Open core dump (01)`, then give the path to `core.seg.<pid>` |
+| See lab 04's deadlock | Start `./dead` in the terminal, then `Attach to running process (04)` and pick `dead` |
+
+The terminal commands in each lab's README are still the ones to practise for the interview. VS Code's debugger runs gdb underneath, and the Debug Console accepts gdb commands prefixed with `-exec`, e.g. `-exec thread apply all bt`.

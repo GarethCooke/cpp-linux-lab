@@ -1,0 +1,71 @@
+{
+  // Run and Debug panel (Ctrl+Shift+D): pick a configuration, press F5.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // Open seg.cpp, uaf.cpp, race_fixed.cpp, dead.cpp, fs.cpp or br.cpp, then F5.
+      // Debugs the program with the same name as the open file.
+      "name": "Debug open lab program (01-06)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}/${fileBasenameNoExtension}",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "lab: build",
+      "setupCommands": [
+        { "description": "Pretty-print STL types", "text": "-enable-pretty-printing", "ignoreFailures": true }
+      ]
+    },
+    {
+      // Open spsc.hpp or test.cpp in lab 07, or buffer.hpp or test.cpp in lab 08.
+      // Builds without sanitizers at -O0 so you can step through your code.
+      "name": "Debug exercise tests (07/08)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}/test_dbg",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "lab: debug build (07/08)",
+      "setupCommands": [
+        { "description": "Pretty-print STL types", "text": "-enable-pretty-printing", "ignoreFailures": true }
+      ]
+    },
+    {
+      // Lab 01: after ./seg has crashed and written core.seg.<pid>.
+      "name": "Open core dump (01)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/labs/01-segfault-core/seg",
+      "coreDumpPath": "${input:corePath}",
+      "cwd": "${workspaceFolder}/labs/01-segfault-core",
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb"
+    },
+    {
+      // Lab 04: start ./dead in a terminal first, then pick it from the list.
+      // VS Code asks for your password, because Ubuntu needs root to attach.
+      "name": "Attach to running process (04)",
+      "type": "cppdbg",
+      "request": "attach",
+      "program": "${workspaceFolder}/labs/04-deadlock/dead",
+      "processId": "${command:pickProcess}",
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "setupCommands": [
+        { "description": "Pretty-print STL types", "text": "-enable-pretty-printing", "ignoreFailures": true }
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "corePath",
+      "type": "promptString",
+      "description": "Full path to the core file, e.g. labs/01-segfault-core/core.seg.12345",
+      "default": "${workspaceFolder}/labs/01-segfault-core/core.seg."
+    }
+  ]
+}

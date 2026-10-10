@@ -4,7 +4,7 @@
 IMPL     ?= .
 CXXFLAGS := -std=c++20 -O1 -g -Wall -Wextra -I$(IMPL) -fsanitize=address,undefined -fno-omit-frame-pointer
 
-.PHONY: all test clean
+.PHONY: all test debug clean
 
 # build only; `make test` builds and runs
 all:
@@ -14,5 +14,9 @@ test:
 	$(CXX) $(CXXFLAGS) test.cpp -o test
 	./test
 
+# unoptimised, no sanitizer: for stepping through in gdb / VS Code
+debug:
+	g++ -std=c++20 -O0 -g -Wall -Wextra -I$(IMPL) test.cpp -o test_dbg
+
 clean:
-	rm -f test
+	rm -f test test_dbg

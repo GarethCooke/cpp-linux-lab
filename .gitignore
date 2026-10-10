@@ -13,6 +13,7 @@ labs/*/br_o3
 labs/*/plain
 labs/*/test
 labs/*/test_tsan
+labs/*/test_dbg
 labs/*/bench
 *.o
 core
