@@ -44,5 +44,5 @@ kill %1
 
 ## Stretch
 
-- Build `dead.cpp` with `-fsanitize=thread` and run it. TSan reports the lock-order inversion before it hangs.
+- Build `dead.cpp` with `-fsanitize=thread` and run it: it hangs silently. TSan records a lock-order edge only once the second lock is *acquired*, and here neither thread ever gets its second lock. Now add `matcher.join();` before `std::jthread limits` and rebuild: the run finishes, and TSan reports `lock-order-inversion (potential deadlock)` with both stacks. TSan finds the inversions on runs that got lucky; gdb explains the run that didn't.
 - Try `eu-stack -p <pid>` (from elfutils) as a faster, non-interactive stack dump.
